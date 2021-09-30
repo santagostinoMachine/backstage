@@ -15,6 +15,7 @@
  */
 
 import React from 'react';
+import { wrapInTestApp } from '@backstage/test-utils';
 import { render, waitFor, screen } from '@testing-library/react';
 
 import {
@@ -28,11 +29,9 @@ import {
 import { mockApiClient } from '../../test-helpers/mock-api-client';
 import { PatchBody } from './PatchBody';
 import { TEST_IDS } from '../../test-helpers/test-ids';
+import { ApiProvider, ApiRegistry } from '@backstage/core-app-api';
+import { gitReleaseManagerApiRef } from '../..';
 
-jest.mock('@backstage/core-plugin-api', () => ({
-  ...jest.requireActual('@backstage/core-plugin-api'),
-  useApi: () => mockApiClient,
-}));
 jest.mock('../../contexts/ProjectContext', () => ({
   useProjectContext: () => ({
     project: mockCalverProject,
@@ -55,12 +54,18 @@ describe('PatchBody', () => {
     });
 
     const { getByTestId } = render(
-      <PatchBody
-        bumpedTag={mockBumpedTag}
-        latestRelease={mockReleaseCandidateCalver}
-        releaseBranch={mockReleaseBranch}
-        tagParts={mockTagParts}
-      />,
+      wrapInTestApp(
+        <ApiProvider
+          apis={ApiRegistry.from([[gitReleaseManagerApiRef, mockApiClient]])}
+        >
+          <PatchBody
+            bumpedTag={mockBumpedTag}
+            latestRelease={mockReleaseCandidateCalver}
+            releaseBranch={mockReleaseBranch}
+            tagParts={mockTagParts}
+          />
+        </ApiProvider>,
+      ),
     );
 
     expect(getByTestId(TEST_IDS.patch.loading)).toBeInTheDocument();
@@ -72,12 +77,19 @@ describe('PatchBody', () => {
 
   it('should render not-prerelease description', async () => {
     const { getByTestId } = render(
-      <PatchBody
-        latestRelease={mockReleaseVersionCalver}
-        releaseBranch={mockReleaseBranch}
-        bumpedTag={mockBumpedTag}
-        tagParts={mockTagParts}
-      />,
+      wrapInTestApp(
+        <ApiProvider
+          apis={ApiRegistry.from([[gitReleaseManagerApiRef, mockApiClient]])}
+        >
+          <PatchBody
+            latestRelease={mockReleaseVersionCalver}
+            releaseBranch={mockReleaseBranch}
+            bumpedTag={mockBumpedTag}
+            tagParts={mockTagParts}
+          />
+        </ApiProvider>,
+        {},
+      ),
     );
 
     expect(getByTestId(TEST_IDS.patch.loading)).toBeInTheDocument();

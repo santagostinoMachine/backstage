@@ -15,6 +15,7 @@
  */
 
 import React from 'react';
+import { wrapInTestApp } from '@backstage/test-utils';
 import { render } from '@testing-library/react';
 
 import {
@@ -33,11 +34,13 @@ jest.mock('../../contexts/ProjectContext', () => ({
 describe('Info', () => {
   it('should return early if no latestRelease exists', async () => {
     const { findByText } = render(
-      <Info
-        latestRelease={mockReleaseCandidateCalver}
-        releaseBranch={mockReleaseBranch}
-        statsEnabled
-      />,
+      wrapInTestApp(
+        <Info
+          latestRelease={mockReleaseCandidateCalver}
+          releaseBranch={mockReleaseBranch}
+          statsEnabled
+        />,
+      ),
     );
 
     expect(await findByText(mockReleaseBranch.name)).toMatchInlineSnapshot(`

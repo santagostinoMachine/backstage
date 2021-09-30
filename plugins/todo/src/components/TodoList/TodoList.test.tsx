@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
+import { analyticsApiRef } from '@backstage/core-plugin-api';
 import { Entity } from '@backstage/catalog-model';
 import { EntityProvider } from '@backstage/plugin-catalog-react';
 import { renderWithEffects } from '@backstage/test-utils';
 import React from 'react';
 import { TodoApi, todoApiRef } from '../../api';
 import { TodoList } from './TodoList';
-import { ApiProvider, ApiRegistry } from '@backstage/core-app-api';
+import {
+  ApiProvider,
+  ApiRegistry,
+  NoOpAnalyticsApi,
+} from '@backstage/core-app-api';
 
 describe('TodoList', () => {
   it('should render', async () => {
@@ -42,7 +47,12 @@ describe('TodoList', () => {
     const mockEntity = { metadata: { name: 'mock' } } as Entity;
 
     const rendered = await renderWithEffects(
-      <ApiProvider apis={ApiRegistry.with(todoApiRef, mockApi)}>
+      <ApiProvider
+        apis={ApiRegistry.with(todoApiRef, mockApi).with(
+          analyticsApiRef,
+          new NoOpAnalyticsApi(),
+        )}
+      >
         <EntityProvider entity={mockEntity}>
           <TodoList />
         </EntityProvider>

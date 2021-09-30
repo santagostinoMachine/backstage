@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
+import { wrapInTestApp } from '@backstage/test-utils';
 import { render } from '@testing-library/react';
 import React from 'react';
-import { MemoryRouter } from 'react-router';
 import { EntityRefLinks } from './EntityRefLinks';
 
 describe('<EntityRefLinks />', () => {
@@ -28,9 +28,9 @@ describe('<EntityRefLinks />', () => {
         name: 'software',
       },
     ];
-    const { getByText } = render(<EntityRefLinks entityRefs={entityNames} />, {
-      wrapper: MemoryRouter,
-    });
+    const { getByText } = render(
+      wrapInTestApp(<EntityRefLinks entityRefs={entityNames} />),
+    );
     expect(getByText('component:software')).toHaveAttribute(
       'href',
       '/catalog/default/component/software',
@@ -50,9 +50,9 @@ describe('<EntityRefLinks />', () => {
         name: 'interface',
       },
     ];
-    const { getByText } = render(<EntityRefLinks entityRefs={entityNames} />, {
-      wrapper: MemoryRouter,
-    });
+    const { getByText } = render(
+      wrapInTestApp(<EntityRefLinks entityRefs={entityNames} />),
+    );
     expect(getByText(',')).toBeInTheDocument();
     expect(getByText('component:software')).toHaveAttribute(
       'href',

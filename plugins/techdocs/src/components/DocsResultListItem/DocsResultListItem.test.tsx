@@ -15,6 +15,7 @@
  */
 
 import React from 'react';
+import { wrapInTestApp } from '@backstage/test-utils';
 import { render } from '@testing-library/react';
 import { DocsResultListItem } from './DocsResultListItem';
 
@@ -35,7 +36,9 @@ const validResult = {
 
 describe('DocsResultListItem test', () => {
   it('should render search doc passed in', async () => {
-    const { findByText } = render(<DocsResultListItem result={validResult} />);
+    const { findByText } = render(
+      wrapInTestApp(<DocsResultListItem result={validResult} />),
+    );
 
     expect(
       await findByText('Documentation | Backstage docs'),
@@ -49,7 +52,12 @@ describe('DocsResultListItem test', () => {
 
   it('should use title if defined', async () => {
     const { findByText } = render(
-      <DocsResultListItem result={validResult} title="Count Dookumentation" />,
+      wrapInTestApp(
+        <DocsResultListItem
+          result={validResult}
+          title="Count Dookumentation"
+        />,
+      ),
     );
 
     expect(await findByText('Count Dookumentation')).toBeInTheDocument();

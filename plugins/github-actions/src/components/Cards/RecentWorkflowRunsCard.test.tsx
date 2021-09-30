@@ -28,8 +28,10 @@ import {
   ApiProvider,
   ApiRegistry,
   ConfigReader,
+  NoOpAnalyticsApi,
 } from '@backstage/core-app-api';
 import {
+  analyticsApiRef,
   errorApiRef,
   configApiRef,
   ConfigApi,
@@ -83,10 +85,9 @@ describe('<RecentWorkflowRunsCard />', () => {
       <ThemeProvider theme={lightTheme}>
         <MemoryRouter>
           <ApiProvider
-            apis={ApiRegistry.with(errorApiRef, mockErrorApi).with(
-              configApiRef,
-              configApi,
-            )}
+            apis={ApiRegistry.with(errorApiRef, mockErrorApi)
+              .with(configApiRef, configApi)
+              .with(analyticsApiRef, new NoOpAnalyticsApi())}
           >
             <EntityProvider entity={props.entity!}>
               <RecentWorkflowRunsCard {...props} />

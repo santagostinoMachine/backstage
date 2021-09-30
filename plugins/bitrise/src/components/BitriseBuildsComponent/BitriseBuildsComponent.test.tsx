@@ -15,6 +15,7 @@
  */
 
 import React from 'react';
+import { wrapInTestApp } from '@backstage/test-utils';
 import { render } from '@testing-library/react';
 import { BitriseBuildsComponent } from './BitriseBuildsComponent';
 
@@ -47,7 +48,8 @@ jest.mock('../BitriseBuildsTableComponent', () => ({
 describe('BitriseArtifactsComponent', () => {
   entityValue = { entity: { metadata: {} } };
 
-  const renderComponent = () => render(<BitriseBuildsComponent />);
+  const renderComponent = () =>
+    render(wrapInTestApp(<BitriseBuildsComponent />));
 
   it('should display an empty state if an app annotation is missing', async () => {
     const rendered = renderComponent();

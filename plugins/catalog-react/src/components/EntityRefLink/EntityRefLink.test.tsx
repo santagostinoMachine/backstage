@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
+import { wrapInTestApp } from '@backstage/test-utils';
 import { render } from '@testing-library/react';
 import React from 'react';
-import { MemoryRouter } from 'react-router';
 import { EntityRefLink } from './EntityRefLink';
 
 describe('<EntityRefLink />', () => {
@@ -33,9 +33,9 @@ describe('<EntityRefLink />', () => {
         lifecycle: 'production',
       },
     };
-    const { getByText } = render(<EntityRefLink entityRef={entity} />, {
-      wrapper: MemoryRouter,
-    });
+    const { getByText } = render(
+      wrapInTestApp(<EntityRefLink entityRef={entity} />),
+    );
 
     expect(getByText('component:software')).toHaveAttribute(
       'href',
@@ -57,9 +57,9 @@ describe('<EntityRefLink />', () => {
         lifecycle: 'production',
       },
     };
-    const { getByText } = render(<EntityRefLink entityRef={entity} />, {
-      wrapper: MemoryRouter,
-    });
+    const { getByText } = render(
+      wrapInTestApp(<EntityRefLink entityRef={entity} />),
+    );
     expect(getByText('component:test/software')).toHaveAttribute(
       'href',
       '/catalog/test/component/software',
@@ -81,10 +81,9 @@ describe('<EntityRefLink />', () => {
       },
     };
     const { getByText } = render(
-      <EntityRefLink entityRef={entity} defaultKind="Component" />,
-      {
-        wrapper: MemoryRouter,
-      },
+      wrapInTestApp(
+        <EntityRefLink entityRef={entity} defaultKind="Component" />,
+      ),
     );
     expect(getByText('test/software')).toHaveAttribute(
       'href',
@@ -98,9 +97,9 @@ describe('<EntityRefLink />', () => {
       namespace: 'default',
       name: 'software',
     };
-    const { getByText } = render(<EntityRefLink entityRef={entityName} />, {
-      wrapper: MemoryRouter,
-    });
+    const { getByText } = render(
+      wrapInTestApp(<EntityRefLink entityRef={entityName} />),
+    );
     expect(getByText('component:software')).toHaveAttribute(
       'href',
       '/catalog/default/component/software',
@@ -113,9 +112,9 @@ describe('<EntityRefLink />', () => {
       namespace: 'test',
       name: 'software',
     };
-    const { getByText } = render(<EntityRefLink entityRef={entityName} />, {
-      wrapper: MemoryRouter,
-    });
+    const { getByText } = render(
+      wrapInTestApp(<EntityRefLink entityRef={entityName} />),
+    );
     expect(getByText('component:test/software')).toHaveAttribute(
       'href',
       '/catalog/test/component/software',
@@ -129,10 +128,9 @@ describe('<EntityRefLink />', () => {
       name: 'software',
     };
     const { getByText } = render(
-      <EntityRefLink entityRef={entityName} defaultKind="component" />,
-      {
-        wrapper: MemoryRouter,
-      },
+      wrapInTestApp(
+        <EntityRefLink entityRef={entityName} defaultKind="component" />,
+      ),
     );
     expect(getByText('test/software')).toHaveAttribute(
       'href',
@@ -147,12 +145,11 @@ describe('<EntityRefLink />', () => {
       name: 'software',
     };
     const { getByText } = render(
-      <EntityRefLink entityRef={entityName} defaultKind="component">
-        Custom Children
-      </EntityRefLink>,
-      {
-        wrapper: MemoryRouter,
-      },
+      wrapInTestApp(
+        <EntityRefLink entityRef={entityName} defaultKind="component">
+          Custom Children
+        </EntityRefLink>,
+      ),
     );
     expect(getByText('Custom Children')).toHaveAttribute(
       'href',

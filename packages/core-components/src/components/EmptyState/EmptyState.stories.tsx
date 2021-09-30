@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-import React from 'react';
+import { wrapInTestApp } from '@backstage/test-utils';
+import React, { ComponentType } from 'react';
 import { EmptyState } from './EmptyState';
 import { Button } from '@material-ui/core';
 import { MissingAnnotationEmptyState } from './MissingAnnotationEmptyState';
@@ -22,6 +23,7 @@ import { MissingAnnotationEmptyState } from './MissingAnnotationEmptyState';
 export default {
   title: 'Feedback/EmptyState',
   component: EmptyState,
+  decorators: [(Story: ComponentType<{}>) => wrapInTestApp(<Story />)],
 };
 
 const containerStyle = { width: '100%', height: '100vh' };

@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
+import { renderInTestApp } from '@backstage/test-utils';
 import { lightTheme } from '@backstage/theme';
 import { ThemeProvider } from '@material-ui/core';
 import CloudIcon from '@material-ui/icons/Cloud';
-import { render } from '@testing-library/react';
 import React from 'react';
 import { IconLink } from './IconLink';
 
 describe('IconLink', () => {
-  it('should render an icon link', () => {
-    const rendered = render(
+  it('should render an icon link', async () => {
+    const rendered = await renderInTestApp(
       <ThemeProvider theme={lightTheme}>
         <IconLink
           href="https://example.com"

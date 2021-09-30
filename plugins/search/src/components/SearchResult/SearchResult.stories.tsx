@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-import React from 'react';
+import React, { ComponentType } from 'react';
+import { wrapInTestApp } from '@backstage/test-utils';
 import { List, Link, ListItem } from '@material-ui/core';
 import { SearchResult, SearchContext, DefaultResultListItem } from '../index';
-import { MemoryRouter } from 'react-router';
 
 export default {
   title: 'Plugins/Search/SearchResult',
   component: SearchResult,
+  decorators: [(Story: ComponentType<{}>) => wrapInTestApp(<Story />)],
 };
 
 const defaultValue = {
@@ -61,7 +62,7 @@ const defaultValue = {
 
 export const Default = () => {
   return (
-    <MemoryRouter>
+    <>
       {/* @ts-ignore (defaultValue requires more than what is used here) */}
       <SearchContext.Provider value={defaultValue}>
         <SearchResult>
@@ -90,6 +91,6 @@ export const Default = () => {
           )}
         </SearchResult>
       </SearchContext.Provider>
-    </MemoryRouter>
+    </>
   );
 };

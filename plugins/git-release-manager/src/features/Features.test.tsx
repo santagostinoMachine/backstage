@@ -15,17 +15,16 @@
  */
 
 import React from 'react';
+import { wrapInTestApp } from '@backstage/test-utils';
 import { render, act, waitFor } from '@testing-library/react';
 
 import { Features } from './Features';
 import { mockCalverProject } from '../test-helpers/test-helpers';
 import { TEST_IDS } from '../test-helpers/test-ids';
 import { mockApiClient } from '../test-helpers/mock-api-client';
+import { ApiProvider, ApiRegistry } from '@backstage/core-app-api';
+import { gitReleaseManagerApiRef } from '..';
 
-jest.mock('@backstage/core-plugin-api', () => ({
-  ...jest.requireActual('@backstage/core-plugin-api'),
-  useApi: () => mockApiClient,
-}));
 jest.mock('../contexts/ProjectContext', () => ({
   useProjectContext: () => ({
     project: mockCalverProject,
@@ -35,18 +34,24 @@ jest.mock('../contexts/ProjectContext', () => ({
 describe('Features', () => {
   it('should omit features omitted via configuration', async () => {
     const { getByTestId } = render(
-      <Features
-        features={{
-          info: { omit: false },
-          createRc: { omit: true },
-          promoteRc: { omit: true },
-          patch: { omit: true },
-          custom: {
-            // shouldn't trigger "missing key" warning in console
-            factory: () => [<div>Custom 1</div>, <div>Custom 2</div>],
-          },
-        }}
-      />,
+      wrapInTestApp(
+        <ApiProvider
+          apis={ApiRegistry.from([[gitReleaseManagerApiRef, mockApiClient]])}
+        >
+          <Features
+            features={{
+              info: { omit: false },
+              createRc: { omit: true },
+              promoteRc: { omit: true },
+              patch: { omit: true },
+              custom: {
+                // shouldn't trigger "missing key" warning in console
+                factory: () => [<div>Custom 1</div>, <div>Custom 2</div>],
+              },
+            }}
+          />
+        </ApiProvider>,
+      ),
     );
 
     await act(async () => {

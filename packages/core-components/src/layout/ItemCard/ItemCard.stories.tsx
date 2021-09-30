@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { wrapInTestApp } from '@backstage/test-utils';
 import {
   Card,
   CardActions,
@@ -22,14 +23,14 @@ import {
   makeStyles,
   Typography,
 } from '@material-ui/core';
-import React from 'react';
-import { MemoryRouter } from 'react-router';
+import React, { ComponentType } from 'react';
 import { Button } from '../../components';
 import { ItemCardGrid } from './ItemCardGrid';
 import { ItemCardHeader } from './ItemCardHeader';
 
 export default {
   title: 'Layout/Item Cards',
+  decorators: [(Story: ComponentType<{}>) => wrapInTestApp(<Story />)],
 };
 
 const text =
@@ -46,7 +47,7 @@ const useStyles = makeStyles({
 });
 
 export const Default = () => (
-  <MemoryRouter>
+  <>
     <Typography paragraph>
       The most basic setup is to place a bunch of cards into a large grid,
       leaving styling to the defaults. Try to resize the window to see how they
@@ -72,13 +73,13 @@ export const Default = () => (
         </Card>
       ))}
     </ItemCardGrid>
-  </MemoryRouter>
+  </>
 );
 
 export const Styling = () => {
   const classes = useStyles();
   return (
-    <MemoryRouter>
+    <>
       <Typography paragraph>
         Both the grid and the header can be styled, using the{' '}
         <Typography variant="caption">classes</Typography> property. This lets
@@ -108,6 +109,6 @@ export const Styling = () => {
           </Card>
         ))}
       </ItemCardGrid>
-    </MemoryRouter>
+    </>
   );
 };

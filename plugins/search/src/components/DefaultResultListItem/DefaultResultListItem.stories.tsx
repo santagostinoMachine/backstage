@@ -14,30 +14,29 @@
  * limitations under the License.
  */
 
-import React from 'react';
+import React, { ComponentType } from 'react';
+import { wrapInTestApp } from '@backstage/test-utils';
 import { Grid } from '@material-ui/core';
 import { DefaultResultListItem } from '../index';
-import { MemoryRouter } from 'react-router';
 
 export default {
   title: 'Plugins/Search/DefaultResultListItem',
   component: DefaultResultListItem,
+  decorators: [(Story: ComponentType<{}>) => wrapInTestApp(<Story />)],
 };
 
 export const Default = () => {
   return (
-    <MemoryRouter>
-      <Grid container direction="row">
-        <Grid item xs={12}>
-          <DefaultResultListItem
-            result={{
-              location: 'search/search-result',
-              title: 'Search Result 1',
-              text: 'some text from the search result',
-            }}
-          />
-        </Grid>
+    <Grid container direction="row">
+      <Grid item xs={12}>
+        <DefaultResultListItem
+          result={{
+            location: 'search/search-result',
+            title: 'Search Result 1',
+            text: 'some text from the search result',
+          }}
+        />
       </Grid>
-    </MemoryRouter>
+    </Grid>
   );
 };

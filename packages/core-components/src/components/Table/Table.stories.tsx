@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
+import { wrapInTestApp } from '@backstage/test-utils';
 import { makeStyles } from '@material-ui/core';
-import React from 'react';
+import React, { ComponentType } from 'react';
 import { Link } from '../Link';
 import { SubvalueCell, Table, TableColumn } from '.';
 import { TableFilter } from './Table';
@@ -23,6 +24,7 @@ import { TableFilter } from './Table';
 export default {
   title: 'Data Display/Table',
   component: Table,
+  decorators: [(Story: ComponentType<{}>) => wrapInTestApp(<Story />)],
 };
 
 const useStyles = makeStyles(theme => ({

@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { wrapInTestApp } from '@backstage/test-utils';
 import { Box, List, ListItem, Popover, Typography } from '@material-ui/core';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import React, { Fragment } from 'react';
-import { MemoryRouter } from 'react-router-dom';
+import React, { ComponentType, Fragment } from 'react';
 import { Link } from '../../components/Link';
 import { Header } from '../Header';
 import { Page } from '../Page';
@@ -26,10 +26,11 @@ import { Breadcrumbs } from './Breadcrumbs';
 export default {
   title: 'Layout/Breadcrumbs',
   component: Breadcrumbs,
+  decorators: [(Story: ComponentType<{}>) => wrapInTestApp(<Story />)],
 };
 
 export const InHeader = () => (
-  <MemoryRouter>
+  <>
     <h2>Standard breadcrumbs</h2>
     <p>
       Underlined pages are links. This should show a hierarchical relationship.
@@ -38,7 +39,7 @@ export const InHeader = () => (
     <Page themeId="other">
       <Header title="Current Page" type="General Page" typeLink="/" />
     </Page>
-  </MemoryRouter>
+  </>
 );
 
 export const OutsideOfHeader = () => {
@@ -55,7 +56,7 @@ export const OutsideOfHeader = () => {
 
   const open = Boolean(anchorEl);
   return (
-    <MemoryRouter>
+    <>
       <p>
         It might be the case that you want to keep your breadcrumbs outside of
         the header. In that case, they should be positioned above the title of
@@ -133,6 +134,6 @@ export const OutsideOfHeader = () => {
           </List>
         </Popover>
       </Fragment>
-    </MemoryRouter>
+    </>
   );
 };
