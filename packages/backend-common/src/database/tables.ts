@@ -14,9 +14,18 @@
  * limitations under the License.
  */
 
-export type DbTaskLocksRow = {
+export type DbMutexesRow = {
   id: string;
-  acquired_ticket?: string;
-  acquired_at?: Date;
-  expires_at?: Date;
+  current_lock_ticket?: string;
+  current_lock_acquired_at?: Date;
+  current_lock_expires_at?: Date;
+};
+
+export type DbTasksRow = {
+  id: string;
+  settings_json: string;
+  next_run_start_at?: Date;
+  current_run_ticket?: string;
+  current_run_started_at?: Date;
+  current_run_expires_at?: Date;
 };

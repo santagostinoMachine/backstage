@@ -69,7 +69,8 @@
     "unzipper": "^0.10.11",
     "uuid": "^8.0.0",
     "winston": "^3.2.1",
-    "yn": "^4.0.0"
+    "yn": "^4.0.0",
+    "zod": "^3.9.5"
   },
   "peerDependencies": {
     "pg-connection-string": "^2.3.0"
