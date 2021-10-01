@@ -48,6 +48,13 @@ export function isEntityOwner(owners: EntityName[]): Filter {
   };
 }
 
+export function isEntityKind(kinds: string[]): Filter {
+  return {
+    key: 'kind',
+    matchValueIn: kinds.map(kind => kind.toLocaleLowerCase('en-US')),
+  };
+}
+
 export function hasAnnotation(annotation: string): Filter {
   return {
     key: annotation,

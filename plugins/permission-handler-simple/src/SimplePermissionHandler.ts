@@ -28,6 +28,7 @@ import {
   EntityName,
   hasAnnotation,
   isEntityOwner,
+  isEntityKind,
   parseEntityRef,
 } from '@backstage/catalog-model';
 
@@ -57,12 +58,6 @@ export class SimplePermissionHandler implements PermissionHandler {
     request: AuthorizeRequest<AuthorizeRequestContext>,
     identity?: BackstageIdentity,
   ): Promise<AuthorizeFiltersResponse> {
-    if (request.permission.isRead) {
-      return {
-        result: AuthorizeResult.ALLOW,
-      };
-    }
-
     if (CatalogPermission.includes(request.permission)) {
       if (!identity) {
         return {
@@ -76,6 +71,10 @@ export class SimplePermissionHandler implements PermissionHandler {
           anyOf: [
             {
               allOf: [
+                // TODO(authorization-framework) eventually all the claims
+                // should be pulled off the token and used to evaluate
+                // transitive ownership (I own anything owned by my user
+                // or any of the groups I'm in).
                 isEntityOwner([
                   parseEntityRef(identity?.id ?? '', {
                     defaultKind: 'user',
@@ -84,6 +83,9 @@ export class SimplePermissionHandler implements PermissionHandler {
                 ]),
                 hasAnnotation('backstage.io/view-url'),
               ],
+            },
+            {
+              allOf: [isEntityKind(['template'])],
             },
           ],
         },
