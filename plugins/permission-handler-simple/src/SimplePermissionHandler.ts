@@ -87,6 +87,8 @@ export class SimplePermissionHandler implements PermissionHandler {
             {
               allOf: [isEntityKind(['template'])],
             },
+            // TODO(authorization-framework) we probably need the ability
+            // to do negative matching (i.e. exclude all entities of type X)
           ],
         },
       };
