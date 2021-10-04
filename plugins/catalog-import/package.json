@@ -33,7 +33,7 @@
   "dependencies": {
     "@backstage/catalog-client": "^0.4.0",
     "@backstage/catalog-model": "^0.9.3",
-    "@backstage/core-components": "^0.6.0",
+    "@backstage/core-components": "^0.6.1",
     "@backstage/core-plugin-api": "^0.1.9",
     "@backstage/integration": "^0.6.6",
     "@backstage/integration-react": "^0.1.11",
@@ -45,17 +45,17 @@
     "@types/react": "*",
     "git-url-parse": "^11.6.0",
     "js-base64": "^3.6.0",
+    "lodash": "^4.17.21",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hook-form": "^7.12.2",
     "react-router": "6.0.0-beta.0",
     "react-use": "^17.2.4",
-    "yaml": "^1.10.0",
-    "lodash": "^4.17.21"
+    "yaml": "^1.10.0"
   },
   "devDependencies": {
-    "@backstage/cli": "^0.7.14",
-    "@backstage/core-app-api": "^0.1.15",
+    "@backstage/cli": "^0.7.15",
+    "@backstage/core-app-api": "^0.1.16",
     "@backstage/dev-utils": "^0.2.11",
     "@backstage/test-utils": "^0.1.17",
     "@testing-library/jest-dom": "^5.10.1",

@@ -1,5 +1,14 @@
 # @backstage/core-app-api
 
+## 0.1.16
+
+### Patch Changes
+
+- d6ad46eb22: Stop calling connector.removeSession in StaticAuthSessionManager, instead just discarding the
+  session locally.
+- Updated dependencies
+  - @backstage/core-components@0.6.1
+
 ## 0.1.15
 
 ### Patch Changes

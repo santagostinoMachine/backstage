@@ -1,5 +1,11 @@
 # @backstage/integration
 
+## 0.6.7
+
+### Patch Changes
+
+- ca0559444c: Avoid usage of `.to*Case()`, preferring `.toLocale*Case('en-US')` instead.
+
 ## 0.6.6
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @backstage/plugin-sonarqube
 
+## 0.2.5
+
+### Patch Changes
+
+- ca0559444c: Avoid usage of `.to*Case()`, preferring `.toLocale*Case('en-US')` instead.
+- Updated dependencies
+  - @backstage/catalog-model@0.9.4
+  - @backstage/core-components@0.6.1
+  - @backstage/plugin-catalog-react@0.5.2
+
 ## 0.2.4
 
 ### Patch Changes

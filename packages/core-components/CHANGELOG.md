@@ -1,5 +1,11 @@
 # @backstage/core-components
 
+## 0.6.1
+
+### Patch Changes
+
+- ca0559444c: Avoid usage of `.to*Case()`, preferring `.toLocale*Case('en-US')` instead.
+
 ## 0.6.0
 
 ### Minor Changes

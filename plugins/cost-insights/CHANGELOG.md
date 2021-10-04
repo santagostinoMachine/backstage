@@ -1,5 +1,14 @@
 # @backstage/plugin-cost-insights
 
+## 0.11.9
+
+### Patch Changes
+
+- 957e4b3351: Updated dependencies
+- ca0559444c: Avoid usage of `.to*Case()`, preferring `.toLocale*Case('en-US')` instead.
+- Updated dependencies
+  - @backstage/core-components@0.6.1
+
 ## 0.11.8
 
 ### Patch Changes

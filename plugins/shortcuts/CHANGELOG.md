@@ -1,5 +1,13 @@
 # @backstage/plugin-shortcuts
 
+## 0.1.11
+
+### Patch Changes
+
+- ca0559444c: Avoid usage of `.to*Case()`, preferring `.toLocale*Case('en-US')` instead.
+- Updated dependencies
+  - @backstage/core-components@0.6.1
+
 ## 0.1.10
 
 ### Patch Changes
